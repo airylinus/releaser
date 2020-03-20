@@ -9,15 +9,17 @@ import (
 	"time"
 )
 
+// PublishConfig is config parameters
 type PublishConfig struct {
-	Host string
+	Host    string
 	Project int64
-	Tag    string
-	Link   string
+	Tag     string
+	Link    string
 	Note    string
 	Token   string
 }
 
+// Run runs api call
 func Run(config PublishConfig) bool {
 	if config.Host == "" {
 		fmt.Println("error host empty ")
@@ -25,9 +27,8 @@ func Run(config PublishConfig) bool {
 	}
 	url := fmt.Sprintf("%s/api/v4/projects/%d/releases", config.Host, config.Project)
 
-	//url := "https://hi.hxxbaby.com/api/v4/projects/301/releases"
 	method := "POST"
-	client := http.Client{Timeout:time.Duration(5)*time.Second}
+	client := http.Client{Timeout: time.Duration(5) * time.Second}
 	payload := strings.NewReader(fmt.Sprintf(`{
 	"name": "%s",
 		"tag_name": "%s",
